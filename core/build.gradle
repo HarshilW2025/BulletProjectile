@@ -1,0 +1,45 @@
+apply plugin: 'java'
+
+group 'com.mygame'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+  google()
+}
+
+ext {
+  gdxVersion = '1.13.5'          // adjust if needed
+  enableGraalNative = 'false'    // set true if using GraalVM native
+  graalHelperVersion = '0.1.0'   // only if enableGraalNative=true
+}
+
+dependencies {
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  if (enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+}
+
+// --- Java compilation settings ---
+compileJava {
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+  options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+  options.encoding = 'UTF-8'
+}
+
+// Optional: Eclipse integration
+eclipse {
+  project {
+    name = 'BulletProjectile-core'
+  }
+}
+
+
